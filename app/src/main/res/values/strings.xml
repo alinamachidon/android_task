@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GestureClassification</string>
+    <string name="txt_training">Training</string>
+    <string name="txt_select_training_activity">Select training activity:</string>
+    <string name="txt_gesture_1">Rapid</string>
+    <string name="txt_gesture_2">Slow</string>
+    <string name="txt_gesture_3">Circular</string>
+    <string name="txt_start">Start</string>
+    <string name="txt_inferred">Inferred:</string>
+    <string name="txt_stop">Stop</string>
+</resources>
