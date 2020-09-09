@@ -111,7 +111,7 @@ public class AccSenseService extends IntentService implements SensorEventListene
             localIntent.putExtra(MainActivity.AccBroadcastReceiver.MCR, mcr);
             LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
 
-            Log.d(TAG,String.valueOf(mean) + ", "+String.valueOf(variance) + ", "+String.valueOf(mcr));
+            Log.d(TAG, "Broadcasting sensing results "+String.valueOf(mean) + ", "+String.valueOf(variance) + ", "+String.valueOf(mcr));
         }
     }
 

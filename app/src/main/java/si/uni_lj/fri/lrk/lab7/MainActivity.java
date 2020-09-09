@@ -130,14 +130,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+Runnable runnable;
     void startSensing() {
         Log.d(TAG, "startSensing()");
 
         mSensing = true;
 
         // TODO: set Handler to run AccSenseService every five seconds
-
+/*
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -146,6 +146,17 @@ public class MainActivity extends AppCompatActivity {
         };
 
         handler.postDelayed(runnable, 5000);
+*/
+
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+                //do something
+                Log.d(TAG,"startService AccSenseService");
+                startService(new Intent(MainActivity.this, AccSenseService.class));
+                handler.postDelayed(runnable, 5000);
+            }
+        }, 5000);
+
     }
 
     void stopSensing()
@@ -209,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         Switch s = findViewById(R.id.sw_training);
 
         if (s.isChecked()) {
-
+            Log.d(TAG, "In training : " + mean + " var " + variance + " MCR " + MCR);
             // TODO: get the label of the selected radio button
             RadioGroup rg = findViewById(R.id.radioGroup);
             int selectedId = rg.getCheckedRadioButtonId();
@@ -236,51 +247,6 @@ public class MainActivity extends AppCompatActivity {
             qIntent.putExtra("accMCR", MCR);
             qIntent.setAction(ACTION_CLASSIFIER_QUERY);
             startService(qIntent);
-/*
-            // TODO: Do the inference (classification) and set the result (also screen background colour)
-            try {
-                // TODO: a try-catch block is needed here
-                //mManager = MachineLearningManager.getMLManager(getApplicationContext());
-                Classifier c = mManager.getClassifier("movementClassifier");
-
-                ArrayList<Value> instanceValues = new ArrayList<Value>();
-                Value meanValue = new Value((double) mean, NUMERIC_VALUE);
-                instanceValues.add(meanValue);
-                Value varValue = new Value((double) variance, NUMERIC_VALUE);
-                instanceValues.add(varValue);
-                Value MCRValue = new Value((double) MCR, NUMERIC_VALUE);
-                instanceValues.add(MCRValue);
-                // TODO: add two more features here
-
-                Instance instance1 = new Instance(instanceValues);
-
-                Value inference = c.classify(instance1);
-
-                String sv = inference.getValue().toString();
-                Log.d(TAG, "classifier result: " + sv);
-
-                TextView tvResult = (TextView) findViewById(R.id.tv_result);
-                tvResult.setVisibility(View.VISIBLE);
-                tvResult.setText(sv);
-
-                View v = findViewById(R.id.container);
-
-                if (sv.equals(getResources().getString(R.string.txt_gesture_1))) {
-                    v.setBackgroundColor(Color.BLUE);
-                }
-                if (sv.equals(getResources().getString(R.string.txt_gesture_2))) {
-                    v.setBackgroundColor(Color.RED);
-                }
-                if (sv.equals(getResources().getString(R.string.txt_gesture_3))) {
-                    v.setBackgroundColor(Color.GREEN);
-                }
-            }
-            catch(MLException e)
-            {
-                e.printStackTrace();
-            }
-*/
-
         }
     }
 
